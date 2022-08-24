@@ -8,7 +8,7 @@
 
 2. Nodemon para que o servidor seja atualizado altomaticamente
  ```
- npm install --save nodemon
+  npm install -g nodemon
  ```
 
 3. Mysql para conexão com a base de dados
@@ -25,6 +25,17 @@
 ```
  npm install --save express-handlebars
 ```
+
+---------------------------------------------------------------------------------------------------------------------------  
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+# Antes de iniciar o progeto é necessário criar a base de dados 
+1. Criar a base de dados com o nome nodejs
+2. Acresentar a base de dados uma tabela de nome  __user__ com os campos __id__ = notnull alto increment , __nome__ = tipo varchar e  __senha__ = tipo varchar(30)
  
 Para iniciar o progeto basta executar o comando
  ```
