@@ -94,8 +94,20 @@ app.get("/delete/:id",function(req,res){
     res.render("delete.handlebars")
 })
 
+//Rota formulario  update
+app.get('/update/:id',function(req,res){
+    res.render('update.handlebars',{id:req.params.id})
+})
+
+//Rota para Update
+app.post('/controllerUpdate',urlencodeParser,function(req,res){
+    sql.query("UPDATE user SET nome=?, senha=? WHERE id=?",[req.body.nome, req.body.senha, req.body.id])
+    //res.send('Dados atualizados com sucesso')
+    res.render('controllerUpdate.handlebars')
+})
 
 
+//************************************************************************************************************************8 */
 ///Start server
 app.listen(8000, function (req, res) {
     console.log("Lá vamos nos de novo")
