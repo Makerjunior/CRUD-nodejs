@@ -1,0 +1,26 @@
+<table>
+    <tr>
+
+        <td>ID</td>
+        <td>Nome</td>
+        <td>Senha</td>
+        <td>Action</td>
+
+    </tr>
+
+    {{!-- Imprime o resultado da pesquisa que veio no objeto [data] --}}
+    {{#data}}
+    <tr>
+
+        <td>{{id}}</td>
+        <td>{{nome}}</td>
+        <td>{{senha}}</td>
+        <td>
+            {{!-- Envia para a rota o id do pruduto para que possa ser feito o update ou delete --}}
+            <a href="delete/{{id}}" class="deletar">Delete</a>
+            <a href="update/{{id}}">Update</a>
+        </td>
+    </tr>
+    {{/data}}
+
+</table>
