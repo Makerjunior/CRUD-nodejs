@@ -8,7 +8,7 @@
 
 2. Nodemon para que o servidor seja atualizado altomaticamente
  ```
- npm install --save nodemon
+  npm install -g nodemon
  ```
 
 3. Mysql para conexão com a base de dados
