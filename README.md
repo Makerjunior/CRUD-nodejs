@@ -46,3 +46,12 @@ Para iniciar o progeto basta executar o comando
  ```
  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
  ```
+
+
+ ## CONXÃO COMA BASE DE DADOS 
+
+ * Na pasta __*node_modules*__ temos a pasta __*Database*__ com o arquivo index.js contendo a classe __ClassCrud__ com todas as configurações para a conxão com  a base de dados 
+
+
+
+ 

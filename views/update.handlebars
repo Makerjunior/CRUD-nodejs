@@ -1,8 +1,11 @@
 
- <h1>Update usuarios .</h1>
+ <h1>Update usuarios.</h1>
+ Nome:{{nome}}
+ <br>
+ Senha:{{senha}}
 <form name="form1" action="/controllerUpdate" method="POST">
-    <input type="hidden" name="id" id="id" placeholder="Id:" value="{{id}}"><br/> <!--Campo do tipo hidden ou seja oculto-->
-    <input type="text" name="nome" id="nome" placeholder="Nome:" ><br/>
-    <input type="munber" name="senha" id="senha" placeholder="Senha:"><br/>
-    <input type="submit" name="btnSubmit" id="btnSubmit" value="Udate"><br/>
+    <input type="hidden" name="id" id="id"value="{{id}}"><br/> <!--Campo do tipo hidden ou seja oculto-->
+    <input type="text" name="nome" id="nome"  value="{{nome}}"><br/>
+    <input type="munber" name="senha" id="senha"  value="{{senha}}"><br/>
+    <input type="submit" name="btnSubmit" id="btnSubmit" value="Update"><br/>
 </form>

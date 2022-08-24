@@ -1,31 +1,21 @@
-//Pacotes a instalar 
-// Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path')
-const mysql = require('mysql');
 const handlebars = require('express-handlebars');
 const app = express();
-const port =process.env.PORT || 3000
+const port = process.env.PORT || 3000
 
 // Trata o envio de dados do formulario
 const urlencodeParser = bodyParser.urlencoded({ extended: false }) 
 
-
-//Conexão com base de dados
-const sql = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    port: 3306,
-    database:'nodejs'
-})
+// Chama a pasta Database que fica dentro de  mode_modules
+const crud = require('Database')
+let cruds = new crud() // instancia um OBJ da classe ClassCrud que está dentro da pasta Database
 
 
 
-//Template egine [Trata do layout]
-//app.engine("handlebars" ,handlebars({defaultLayout:'main'}))
+//Template egine [Trata do layout] 
 app.engine('handlebars', handlebars.engine({ defaultLayout: 'main' }));
 app.set('view egine', ' handlebars')
 
@@ -55,75 +45,26 @@ app.get('/', function (req, res) {
 //Rota para formulario de insert
 app.get('/insert', function (req, res) { res.render('insert.handlebars') })
 
-
-
-
 //Rota para select
-app.get('/select/:id?', function (req, res) {
-    // Se não for passado um id
-    if (!req.params.id) {   
-        sql.getConnection(function(err,connection){
-                // função que retorna os valores da querry      
-        connection.query("SELECT * FROM user order by id asc", function (err, results, fields) { // err = erros , results =  resultados, fields = campos da pesquisa
-            res.render('select.handlebars', { data: results })
-        } // Passa para a view o obj data com os valores da pesquisa 
-        )
-
-        })
-      } else {
-        
-        sql.getConnection(function(err,connection){
-     
-        //Se for passado um id a pesquisa sera feita de acordo com o id passado
-        connection.query("SELECT * FROM user WHERE id=? order by id asc", [req.params.id], function (err, results, fields) { // err = erros , results =  resultados, fields = campos da pesquisa
-            res.render('select.handlebars', { data: results })
-        } // Passa para a view o obj data com os valores da pesquisa 
-        )
-
-
-        })
-
-    }
-
-})
+app.get('/select/:id?', function (req, res) {cruds.read(req,res)})
 
 
 
 //Rota controller insert [rota que recebe os dados do formulario]
 app.post('/controllerForm', urlencodeParser, function (req, res) {
     console.log(req.body.id + "-" + req.body.nome + " - " + req.body.senha) // Imprimindo dados no console node.js
-     sql.getConnection(function(err,connection){
-    // Query que insere os dados / req.body.campo_do_formulario
-    connection.query("insert into user values (?,?,?)", [req.body.id, req.body.nome, req.body.senha])
-    // Redireciona para a pagina controler.handlebars e envia o valor do campo nome 
-    res.render('controllerForm.handlebars', { nome: req.body.nome })
-     })
-
-
-
+cruds.create(req,res)
 })
 
 
 //Rota para Delete
-app.get("/delete/:id",function(req,res){
-   sql.getConnection(function(err,connection){
-    connection.query("DELETE FROM user WHERE id=?",[req.params.id])
-    res.render("delete.handlebars")
-   })
-
-})
+app.get("/delete/:id",function(req,res){cruds.delete(req,res)})
 
 //Rota formulario  update
-app.get('/update/:id',function(req,res){
-    res.render('update.handlebars',{id:req.params.id})
-})
+app.get('/update/:id',function(req,res){cruds.update(req,res)})
 
 //Rota para Update
-app.post('/controllerUpdate',urlencodeParser,function(req,res){
-    sql.query("UPDATE user SET nome=?, senha=? WHERE id=?",[req.body.nome, req.body.senha, req.body.id])
-    //res.send('Dados atualizados com sucesso')
-    res.render('controllerUpdate.handlebars')
-})
+app.post('/controllerUpdate',urlencodeParser,function(req,res){cruds.update(req,res,'controller')})
 
 
 //************************************************************************************************************************8 */
